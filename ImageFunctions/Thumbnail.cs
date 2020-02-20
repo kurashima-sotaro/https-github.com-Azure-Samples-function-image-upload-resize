@@ -73,7 +73,7 @@ namespace ImageFunctions
 
         [FunctionName("Thumbnail")]
         public static async Task Run(
-            [EventGridTrigger]EventGridEvent eventGridEvent,
+            [EventGridTrigger]EventGridEvent imageresizersub,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
             ILogger log)
         {
@@ -81,7 +81,7 @@ namespace ImageFunctions
             {
                 if (input != null)
                 {
-                    var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
+                    var createdEvent = ((JObject)imageresizersub.Data).ToObject<StorageBlobCreatedEventData>();
                     var extension = Path.GetExtension(createdEvent.Url);
                     var encoder = GetEncoder(extension);
 
